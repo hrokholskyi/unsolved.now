@@ -1,0 +1,53 @@
+# unsolved.now — Jekyll configuration
+# Built for the native GitHub Pages branch build (no Actions, no plugins).
+
+title: unsolved.now
+tagline: A public index of real, unsolved workflow problems
+description: >-
+  A curated index of specific, recurring workflow problems, sourced from
+  public discussions and documented with linked evidence. Demand data for
+  builders — before the product exists.
+url: "https://unsolved.now"
+baseurl: ""
+
+repository_url: "https://github.com/hrokholskyi/unsolved.now"
+# "Submit a problem" CTA — GitHub Issue Form, preselected via template param.
+submit_url: "https://github.com/hrokholskyi/unsolved.now/issues/new?template=submit-problem.yml"
+
+# Builder-waitlist form endpoint (e.g. Formspree/Buttondown POST URL).
+# OWNER TODO: create an endpoint and set it here. While empty, the site
+# renders a mailto: fallback instead of a dead form.
+form_endpoint: ""
+contact_email: "roman.hrokholskyi@gmail.com"
+
+collections:
+  problems:
+    output: true
+    permalink: /problems/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: problems
+    values:
+      layout: problem
+
+# Launch verticals: machine key -> display label.
+# Adding a vertical here makes it appear in the landing-page filter.
+verticals:
+  dev-tools: "Dev & DevOps tooling"
+  freelance: "Freelancers & solo consultants"
+  agencies: "Small agencies"
+  clinics-local-services: "Clinics & local services"
+  real-estate: "Real estate"
+
+markdown: kramdown
+
+exclude:
+  - README.md
+  - CLAUDE.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
