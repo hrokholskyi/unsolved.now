@@ -3,7 +3,9 @@
 {% assign _url = page.url | replace: "index.html", "" | absolute_url %}
 <title>{{ _title | escape }}</title>
 <meta name="description" content="{{ _desc | escape }}">
+<meta name="theme-color" content="#1B2521">
 <link rel="canonical" href="{{ _url }}">
+<link rel="preload" href="/assets/fonts/caveat-chalk.woff2" as="font" type="font/woff2" crossorigin>
 <meta property="og:site_name" content="unsolved.now">
 <meta property="og:type" content="{% if page.collection == 'problems' %}article{% else %}website{% endif %}">
 <meta property="og:title" content="{{ _title | escape }}">
@@ -11,4 +13,4 @@
 <meta property="og:url" content="{{ _url }}">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="alternate" type="application/atom+xml" title="unsolved.now — newly indexed problems" href="/feed.xml">
+<link rel="alternate" type="application/atom+xml" title="unsolved.now — new problems on the board" href="/feed.xml">

@@ -2,23 +2,20 @@
 # Built for the native GitHub Pages branch build (no Actions, no plugins).
 
 title: unsolved.now
-tagline: A public index of real, unsolved workflow problems
+tagline: A catalog of everything we don't know
 description: >-
-  A curated index of specific, recurring workflow problems, sourced from
-  public discussions and documented with linked evidence. Demand data for
-  builders — before the product exists.
+  The great unsolved problems of mathematics, physics, chemistry, and
+  engineering — how long they've been open, why they resist, and what
+  happens when they fall. Every claim cited to an authoritative source.
 url: "https://unsolved.now"
 baseurl: ""
 
 repository_url: "https://github.com/hrokholskyi/unsolved.now"
-# "Submit a problem" CTA — GitHub Issue Form, preselected via template param.
-submit_url: "https://github.com/hrokholskyi/unsolved.now/issues/new?template=submit-problem.yml"
-# OWNER TODO: Issues are currently DISABLED on the repo, so submit_url 404s.
-# Enable them (Settings -> General -> Features -> Issues), set this to true,
-# and push. Until then every Submit CTA degrades to a structured mailto:.
-issues_enabled: false
+# "Suggest a problem" CTA — GitHub Issue Form, preselected via template param.
+submit_url: "https://github.com/hrokholskyi/unsolved.now/issues/new?template=suggest-problem.yml"
+issues_enabled: true
 
-# Builder-waitlist form endpoint (e.g. Formspree/Buttondown POST URL).
+# Follow-updates form endpoint (e.g. Buttondown/Formspree POST URL).
 # OWNER TODO: create an endpoint and set it here. While empty, the site
 # renders a mailto: fallback instead of a dead form.
 form_endpoint: ""
@@ -36,14 +33,13 @@ defaults:
     values:
       layout: problem
 
-# Launch verticals: machine key -> display label.
-# Adding a vertical here makes it appear in the landing-page filter.
-verticals:
-  dev-tools: "Dev & DevOps tooling"
-  freelance: "Freelancers & solo consultants"
-  agencies: "Small agencies"
-  clinics-local-services: "Clinics & local services"
-  real-estate: "Real estate"
+# Fields: machine key -> display label.
+# Adding a field here makes it appear in the landing-page filter.
+fields:
+  mathematics: "Mathematics"
+  physics: "Physics"
+  chemistry: "Chemistry"
+  engineering-ai: "Engineering & AI"
 
 markdown: kramdown
 

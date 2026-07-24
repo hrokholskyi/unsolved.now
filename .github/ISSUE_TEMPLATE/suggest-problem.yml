@@ -1,0 +1,56 @@
+name: Suggest a problem
+description: Propose an open problem for the board. Must be genuinely unsolved and citable.
+title: "[problem] Name of the open problem"
+labels: ["problem-suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The board holds the great *open* problems of science and engineering —
+        each cited to authoritative sources. Suggestions are checked against that
+        bar: genuinely unsolved, precisely stated, and backed by real references.
+  - type: input
+    id: name
+    attributes:
+      label: Problem name
+      placeholder: "e.g. The Hodge Conjecture"
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: Field
+      options: [Mathematics, Physics, Chemistry, Engineering & AI, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: statement
+    attributes:
+      label: What exactly is unsolved?
+      description: One precise sentence. What is the open question?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+      description: What changes if it's solved?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Authoritative references
+      description: Two or more links (prize pages, arXiv, journals, institute pages) establishing it's open.
+      placeholder: |
+        - https://...
+        - https://...
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: To my knowledge this problem is still genuinely unsolved as of today.
+          required: true

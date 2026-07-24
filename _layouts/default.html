@@ -8,23 +8,25 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
 <header class="masthead">
   <a class="wordmark" href="/">unsolved<span class="wordmark-tld">.now</span></a>
-  <span class="masthead-note">problem index · est. 2026</span>
+  <span class="masthead-note" aria-hidden="true">a catalog of everything we don&rsquo;t know</span>
 </header>
 <main id="main">
 {{ content }}
 </main>
 <footer class="site-footer">
   <p class="mono">
-    <a href="/">index</a> ·
-    <a href="{% include submit_href.html %}">submit a problem</a> ·
-    <a href="/#waitlist">builder waitlist</a> ·
+    <a href="/">the board</a> ·
+    <a href="{% include submit_href.html %}">suggest a problem</a> ·
+    <a href="/#follow">follow</a> ·
     <a href="/feed.xml">feed</a> ·
     <a href="{{ site.repository_url }}">source</a>
   </p>
-  <p class="fine">Every entry is curated from linked public discussions. Nothing here is fabricated:
-  no invented counts, no fictional users. Community validation machinery arrives in phase&nbsp;2.</p>
+  <p class="fine">Everything on this board is cited: every date, prize, and progress claim traces to the
+  linked authoritative sources, verified when curated. Nothing here is invented.</p>
 </footer>
+</div>
 </body>
 </html>

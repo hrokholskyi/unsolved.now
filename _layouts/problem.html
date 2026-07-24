@@ -1,63 +1,59 @@
 ---
 layout: default
 ---
-{% assign vlabel = site.verticals[page.vertical] | default: page.vertical %}
+{% assign flabel = site.fields[page.field] | default: page.field %}
+{% assign nowyear = site.time | date: "%Y" %}
+{% assign yrs = nowyear | minus: page.first_posed %}
 <article>
-  <p class="crumbs mono"><a href="/">index</a> / <a href="/#v-{{ page.vertical }}">{{ vlabel }}</a></p>
+  <p class="crumbs mono"><a href="/">the board</a> / <a href="/#f-{{ page.field }}">{{ flabel }}</a></p>
+  <p class="p-name">{{ page.name }}</p>
   <h1 class="problem-title">{{ page.title }}</h1>
-  <p class="problem-meta">who: {{ page.who }} · curated: {{ page.date_curated }} · sources: {{ page.evidence | size }}</p>
-  <p class="pipeline" aria-label="Validation status: curated; community validation and verified demand come in later phases">
-    <span class="stage done">curated</span> <span class="stage">community-validated</span> <span class="stage">verified demand</span>
-  </p>
+  <p class="open-stamp">open for {{ yrs }} years</p>
+  <p class="problem-meta">posed {{ page.first_posed }}{% if page.posed_by %} · {{ page.posed_by }}{% endif %}{% if page.prize %} · ★ {{ page.prize }}{% endif %}</p>
+
+  <div class="statement">{{ page.statement }}</div>
 
   <section class="p-section">
-    <h2>Problem</h2>
+    <h2>The problem</h2>
     <p>{{ page.summary }}</p>
   </section>
 
   <section class="p-section">
-    <h2>Evidence</h2>
-    <p class="fine">Independent public sources this entry was curated from. Links verified live on {{ page.date_curated }}.</p>
-    <ol class="evidence">
-      {% for e in page.evidence %}
-      <li>
-        <a href="{{ e.url }}" rel="noopener">{{ e.source }}</a>
-        <span class="src-date">({{ e.date }})</span> — {{ e.note }}
-      </li>
+    <h2>Why it matters</h2>
+    <p>{{ page.why_it_matters }}</p>
+  </section>
+
+  {% if page.progress %}
+  <section class="p-section">
+    <h2>Progress so far</h2>
+    <ul class="timeline">
+      {% for m in page.progress %}
+      {% assign parts = m | split: " — " %}
+      <li><span class="yr">{{ parts[0] }}</span><span>{{ m | remove_first: parts[0] | remove_first: " — " }}</span></li>
       {% endfor %}
-    </ol>
-  </section>
-
-  <section class="p-section">
-    <h2>Current workarounds</h2>
-    <p>{{ page.current_workarounds }}</p>
-  </section>
-
-  <section class="p-section">
-    <h2>Why it&rsquo;s still unsolved</h2>
-    <p class="editorial-flag">Editorial analysis — our read, not sourced fact</p>
-    <p>{{ page.why_unsolved }}</p>
-  </section>
-
-  {% if page.signals %}
-  <section class="p-section">
-    <h2>Signals</h2>
-    <ul>
-      {% for s in page.signals %}<li>{{ s }}</li>{% endfor %}
     </ul>
   </section>
   {% endif %}
 
+  <section class="p-section">
+    <h2>References</h2>
+    <ol class="refs">
+      {% for r in page.references %}
+      <li><a href="{{ r.url }}" rel="noopener">{{ r.source }}</a> — <span class="src-note">{{ r.note }}</span></li>
+      {% endfor %}
+    </ol>
+  </section>
+
   {{ content }}
 
   <div class="provenance">
-    <strong>Status: {{ page.status }}.</strong> This entry was curated from the public discussions
-    linked above — it has not yet been validated by the community. Structured validation
-    (frequency, severity, willingness to pay, interviews) arrives in phase&nbsp;2.
+    <strong>Status: open.</strong> Verified still unsolved as of {{ page.date_curated }}.
+    Every date, name, and claim above traces to the references; if this problem falls,
+    the board will say so.
   </div>
 
   <div class="cta-row">
-    <a class="btn btn-primary" href="{% include submit_href.html %}">I have this problem — add my report</a>
-    <a class="btn" href="/#waitlist">I&rsquo;d build this — join the waitlist</a>
+    <a class="btn btn-primary" href="{% include submit_href.html %}">Suggest a problem for the board</a>
+    <a class="btn" href="/#follow">Follow the board</a>
   </div>
 </article>

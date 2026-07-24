@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Builder waitlist
-    url: https://unsolved.now/#waitlist
-    about: Watching for validated demand instead of reporting a problem? Join the waitlist.
+  - name: Follow the board
+    url: https://unsolved.now/#follow
+    about: Want a note when a problem falls or joins the board? Follow instead.

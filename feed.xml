@@ -4,7 +4,7 @@ permalink: /feed.xml
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>unsolved.now — newly indexed problems</title>
+  <title>unsolved.now — new problems on the board</title>
   <subtitle>{{ site.description | strip_newlines | xml_escape }}</subtitle>
   <link href="{{ "/feed.xml" | absolute_url }}" rel="self" type="application/atom+xml"/>
   <link href="{{ site.url }}/" rel="alternate" type="text/html"/>
@@ -13,12 +13,12 @@ permalink: /feed.xml
   <updated>{{ sorted.first.date_curated | date_to_xmlschema }}</updated>
   {% for p in sorted %}
   <entry>
-    <title>{{ p.title | xml_escape }}</title>
+    <title>{{ p.name | xml_escape }} — {{ p.title | xml_escape }}</title>
     <link href="{{ p.url | absolute_url }}" rel="alternate" type="text/html"/>
     <id>{{ p.url | absolute_url }}</id>
     <updated>{{ p.date_curated | date_to_xmlschema }}</updated>
     <published>{{ p.date_curated | date_to_xmlschema }}</published>
-    <category term="{{ p.vertical }}"/>
+    <category term="{{ p.field }}"/>
     <summary>{{ p.summary | xml_escape }}</summary>
     <author><name>unsolved.now</name></author>
   </entry>

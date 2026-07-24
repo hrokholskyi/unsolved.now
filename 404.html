@@ -1,16 +1,16 @@
 ---
 layout: default
 title: "Page not found"
-description: "This page doesn't exist — but the problem index does."
+description: "This page doesn't exist — but a board full of open problems does."
 permalink: /404.html
 ---
 <section class="hero">
-  <p class="mono" style="color:var(--open-red)">404</p>
-  <h1>This page is a problem we <em>did</em> solve: it doesn&rsquo;t exist.</h1>
-  <p class="lede">The entry may have been renamed or removed. Everything that does exist
-  is on the index.</p>
+  <p class="hero-kicker" style="color:var(--yellow)">error 404</p>
+  <h1>Here&rsquo;s one problem we solved: this page doesn&rsquo;t exist.</h1>
+  <p class="hero-sub">The entry may have been renamed or moved. Everything that <em>does</em> exist
+  is on the board.</p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="/">Back to the index</a>
-    <a class="btn" href="{% include submit_href.html %}">Submit a problem</a>
+    <a class="btn btn-primary" href="/">Back to the board</a>
+    <a class="btn" href="{% include submit_href.html %}">Suggest a problem</a>
   </div>
 </section>

@@ -2,39 +2,56 @@
 layout: default
 permalink: /
 ---
+{% assign nowyear = site.time | date: "%Y" %}
+{% assign oldest = site.problems | sort: "first_posed" | first %}
+{% assign oldest_years = nowyear | minus: oldest.first_posed %}
 <section class="hero">
-  <h1>Problems, documented before the products.</h1>
-  <p class="lede">unsolved.now is a public index of specific, recurring workflow problems —
-  curated from public discussions, with linked evidence for every entry.
-  The inverse of a product directory: demand first, solutions later.</p>
+  <div class="ghosts" aria-hidden="true">
+    <span class="ghost" style="top:6%; right:2%; font-size:1.5rem; transform:rotate(6deg)">ζ(s) = 0 ?</span>
+    <span class="ghost" style="top:38%; right:8%; font-size:1.2rem; transform:rotate(-5deg)">P ≟ NP</span>
+    <span class="ghost" style="bottom:16%; right:20%; font-size:1.3rem; transform:rotate(3deg)">∇·u = 0</span>
+    <span class="ghost" style="top:12%; left:58%; font-size:1.1rem; transform:rotate(-8deg)">3n+1</span>
+    <span class="ghost" style="bottom:4%; right:4%; font-size:1.2rem; transform:rotate(-3deg)">T꜀ = ?</span>
+  </div>
+  <p class="hero-kicker">a public catalog of open problems</p>
+  <h1>{{ oldest.name }} has been open for</h1>
+  <span class="years-open">{{ oldest_years }} years</span>
+  <p class="hero-sub"><em>{{ oldest.statement }}</em>
+  It shares this board with {{ site.problems | size | minus: 1 }} more of the hardest open problems
+  in mathematics, physics, chemistry, and engineering — how long each has resisted, why, and what
+  falls with it.</p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="{% include submit_href.html %}">Submit a problem</a>
-    <a class="btn" href="#waitlist">Builder waitlist</a>
+    <a class="btn btn-primary" href="#board">Read the board ↓</a>
+    <a class="btn" href="{% include submit_href.html %}">Suggest a problem</a>
   </div>
 </section>
 
-<nav class="filters" aria-label="Filter problems by vertical">
-  <a href="#catalog" class="filter is-active" data-filter="all">all · {{ site.problems | size }}</a>
-  {% for v in site.verticals %}
-  {% assign items = site.problems | where: "vertical", v[0] %}
+<nav class="filters" aria-label="Filter problems by field">
+  <a href="#board" class="filter is-active" data-filter="all">all · {{ site.problems | size }}</a>
+  {% for f in site.fields %}
+  {% assign items = site.problems | where: "field", f[0] %}
   {% if items.size > 0 %}
-  <a href="#v-{{ v[0] }}" class="filter" data-filter="{{ v[0] }}">{{ v[1] | downcase }} · {{ items.size }}</a>
+  <a href="#f-{{ f[0] }}" class="filter" data-filter="{{ f[0] }}">{{ f[1] | downcase }} · {{ items.size }}</a>
   {% endif %}
   {% endfor %}
 </nav>
 
-<div id="catalog">
-  {% for v in site.verticals %}
-  {% assign items = site.problems | where: "vertical", v[0] | sort: "date_curated" | reverse %}
+<div id="board">
+  {% for f in site.fields %}
+  {% assign items = site.problems | where: "field", f[0] | sort: "first_posed" %}
   {% if items.size > 0 %}
-  <section class="vertical-group" id="v-{{ v[0] }}" data-vertical="{{ v[0] }}">
-    <h2 class="vertical-heading">{{ v[1] }} <span class="count">{{ items.size }}</span></h2>
+  <section class="field-group" id="f-{{ f[0] }}" data-field="{{ f[0] }}">
+    <h2 class="field-heading">{{ f[1] }} <span class="count">{{ items.size }} open</span></h2>
     <ul class="problem-list">
       {% for p in items %}
+      {% assign yrs = nowyear | minus: p.first_posed %}
       <li class="problem-row">
         <h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
-        <p class="row-meta">{{ p.who }} · {{ p.evidence | size }} sources · {{ p.date_curated }}</p>
-        <p class="row-summary">{{ p.summary | split: ". " | first }}.</p>
+        <p class="row-meta">
+          <span class="yrs">open {{ yrs }} yrs</span>
+          <span>{{ p.name }} · posed {{ p.first_posed }}</span>
+          {% if p.prize %}<span class="prize">★ {{ p.prize }}</span>{% endif %}
+        </p>
       </li>
       {% endfor %}
     </ul>
@@ -45,53 +62,47 @@ permalink: /
 
 <section class="p-section" id="about">
   <h2>What this is</h2>
-  <p>Product directories list solutions. This index lists the other side: problems that
-  keep resurfacing in public discussions — specific enough to build against, sourced
-  enough to trust. Every entry links the discussions it was curated from, states who has
-  the problem, what they do about it today, and an editorial read on why it remains open.
-  Nothing is fabricated: no invented vote counts, no fictional users, no made-up numbers.</p>
-  <p><strong>What&rsquo;s here now, honestly:</strong></p>
+  <p>A blackboard of the questions that are still open — the ones textbooks quietly skip past.
+  Each entry states precisely what is unknown, how long it has resisted, what the best minds
+  have managed so far, and what happens the day it falls. Every date, prize, and progress
+  claim is cited to an authoritative source; nothing is invented or embellished.</p>
   <ul class="phase-list">
-    <li><span class="phase-tag now">phase 1 · live</span> — a curated catalog seeded from public
-    discussions, one indexable page per problem, submissions via GitHub.</li>
-    <li><span class="phase-tag later">phase 2 · planned</span> — structured community validation:
-    frequency, severity, tools tried, willingness to pay, interview availability.</li>
-    <li><span class="phase-tag later">phase 3 · planned</span> — verified demand profiles builders
-    can act on, and problem&nbsp;&rarr;&nbsp;builder matching.</li>
+    <li><span class="phase-tag now">now</span> — a curated board across four fields, sources verified at curation time.</li>
+    <li><span class="phase-tag later">next</span> — status watch: when a problem on this board falls, the board says so, fast.</li>
+    <li><span class="phase-tag later">later</span> — the frontier: who is attacking each problem, and with what.</li>
   </ul>
 </section>
 
-<section class="waitlist-box" id="waitlist">
-  <h2>Building something? Watch the demand.</h2>
-  <p class="fine">Get new validated problems as they land — for founders, indie hackers, and
-  product teams scouting real demand. Low volume.</p>
+<section class="follow-box" id="follow">
+  <h2>When one of these falls, you&rsquo;ll want to have known.</h2>
+  <p class="fine">A short note when a problem falls, moves, or joins the board. Rare by nature.</p>
   {% if site.form_endpoint != "" %}
-  <form class="waitlist-form" action="{{ site.form_endpoint }}" method="POST">
-    <label for="wl-email">Email</label>
-    <input id="wl-email" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
-    <button class="btn btn-primary" type="submit">Join the builder waitlist</button>
+  <form class="follow-form" action="{{ site.form_endpoint }}" method="POST">
+    <label for="fw-email">Email</label>
+    <input id="fw-email" type="email" name="email" required autocomplete="email" placeholder="you@curious.org">
+    <button class="btn btn-primary" type="submit">Follow the board</button>
   </form>
   {% else %}
   <p class="cta-row" style="margin-bottom:.25rem">
-    <a class="btn btn-primary" href="mailto:{{ site.contact_email }}?subject=unsolved.now%20builder%20waitlist&body=Add%20me%20to%20the%20builder%20waitlist.">Join via email</a>
+    <a class="btn btn-primary" href="mailto:{{ site.contact_email }}?subject=unsolved.now%20follow&body=Add%20me%20to%20the%20board%20updates.">Follow via email</a>
   </p>
-  <p class="fine">Opens your mail app with a pre-filled message — one-click signup form is on its way.</p>
+  <p class="fine">Opens your mail app with a pre-filled note — a one-click form is coming.</p>
   {% endif %}
 </section>
 
 <script>
 /* Progressive enhancement: filter links become show/hide toggles.
-   Without JS they remain anchor links to each vertical's section. */
+   Without JS they remain anchor links to each field's section. */
 (function () {
   var links = document.querySelectorAll(".filter");
-  var groups = document.querySelectorAll(".vertical-group");
+  var groups = document.querySelectorAll(".field-group");
   links.forEach(function (link) {
     link.addEventListener("click", function (ev) {
       ev.preventDefault();
       var key = link.dataset.filter;
       links.forEach(function (l) { l.classList.toggle("is-active", l === link); });
       groups.forEach(function (g) {
-        g.hidden = key !== "all" && g.dataset.vertical !== key;
+        g.hidden = key !== "all" && g.dataset.field !== key;
       });
     });
   });
