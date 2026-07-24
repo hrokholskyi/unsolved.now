@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% include head.html %}
+<style>{% include main.css %}</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <a class="wordmark" href="/">unsolved<span class="wordmark-tld">.now</span></a>
+  <span class="masthead-note">problem index · est. 2026</span>
+</header>
+<main id="main">
+{{ content }}
+</main>
+<footer class="site-footer">
+  <p class="mono">
+    <a href="/">index</a> ·
+    <a href="{{ site.submit_url }}">submit a problem</a> ·
+    <a href="/#waitlist">builder waitlist</a> ·
+    <a href="/feed.xml">feed</a> ·
+    <a href="{{ site.repository_url }}">source</a>
+  </p>
+  <p class="fine">Every entry is curated from linked public discussions. Nothing here is fabricated:
+  no invented counts, no fictional users. Community validation machinery arrives in phase&nbsp;2.</p>
+</footer>
+</body>
+</html>
