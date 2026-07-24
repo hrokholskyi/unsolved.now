@@ -87,6 +87,10 @@ curl -s https://unsolved.now/feed.xml | head                           # feed re
 
 Things only the repo owner can do; the site degrades gracefully without them:
 
+- [ ] **Enable Issues on the repo** — Issues are currently disabled, so the GitHub
+  Issue Form (the "Submit a problem" CTA target) 404s. Tick *Settings → General →
+  Features → Issues*, then set `issues_enabled: true` in `_config.yml` and push.
+  Until then, all Submit CTAs degrade to a structured `mailto:` mirroring the form.
 - [ ] **Builder waitlist endpoint** — create a Formspree (or Buttondown) form and put
   its POST URL into `form_endpoint` in `_config.yml`. Until then the waitlist CTA is
   a `mailto:` link to `contact_email` (currently the owner's Gmail — change it there
@@ -98,3 +102,8 @@ Things only the repo owner can do; the site degrades gracefully without them:
   settings/API. Everything in phase 1 worked without it (SSH push + public API).
 - [ ] **Analytics (optional)** — if wanted, GoatCounter is a privacy-friendly,
   no-cookie-banner option. Deliberately not integrated with a placeholder key.
+
+Local-dev quirk: on the original dev machine, Ruby's TLS traffic is blocked by
+something network-level (curl works, `bundle install` times out), so local Jekyll
+builds were impossible; verification runs against the live deployment instead
+(see CLAUDE.md). On a normal network `bundle install` + `jekyll serve` work fine.

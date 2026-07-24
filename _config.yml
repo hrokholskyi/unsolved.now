@@ -13,6 +13,10 @@ baseurl: ""
 repository_url: "https://github.com/hrokholskyi/unsolved.now"
 # "Submit a problem" CTA — GitHub Issue Form, preselected via template param.
 submit_url: "https://github.com/hrokholskyi/unsolved.now/issues/new?template=submit-problem.yml"
+# OWNER TODO: Issues are currently DISABLED on the repo, so submit_url 404s.
+# Enable them (Settings -> General -> Features -> Issues), set this to true,
+# and push. Until then every Submit CTA degrades to a structured mailto:.
+issues_enabled: false
 
 # Builder-waitlist form endpoint (e.g. Formspree/Buttondown POST URL).
 # OWNER TODO: create an endpoint and set it here. While empty, the site
