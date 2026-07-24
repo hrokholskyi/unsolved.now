@@ -1,0 +1,84 @@
+name: Submit a problem
+description: Report a real, recurring workflow problem you personally experience.
+title: "[problem] One-line, specific description of the pain"
+labels: ["problem-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for adding to the index. Specific beats general:
+        **"I lose ~2h/week reconciling client feedback across email, Slack and PDFs"**
+        is useful — "communication is hard" is not. Your answers become the raw
+        material for a curated, evidence-backed entry.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What exactly happens, when, and what does it cost you (time, money, clients, sanity)?
+      placeholder: "Every Friday I export invoices from X, then manually…"
+    validations:
+      required: true
+  - type: input
+    id: who
+    attributes:
+      label: Who you are
+      description: "Role and context — e.g. 'freelance designer', 'SRE at a 40-person startup', 'office manager at a dental clinic'."
+    validations:
+      required: true
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often it bites
+      options:
+        - Daily
+        - Weekly
+        - Monthly
+        - A few times a year
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity when it happens
+      options:
+        - Minor annoyance
+        - Costs real time (30+ minutes each occurrence)
+        - Costs money or clients
+        - Blocks work entirely
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What you've tried
+      description: Tools, workarounds, processes — and why they fall short.
+    validations:
+      required: true
+  - type: dropdown
+    id: pay
+    attributes:
+      label: Would you pay for a real solution?
+      options:
+        - "No"
+        - "Maybe, if it nailed it"
+        - "Yes — under $10/month"
+        - "Yes — $10–50/month"
+        - "Yes — more than $50/month"
+    validations:
+      required: true
+  - type: dropdown
+    id: interview
+    attributes:
+      label: Open to a 15-minute interview with a builder?
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Contact handle (optional)
+      description: Email, X/Twitter, LinkedIn — only if you're open to being contacted.
+    validations:
+      required: false
