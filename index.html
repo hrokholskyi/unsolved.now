@@ -1,5 +1,99 @@
-<html>
-  <body>
-    <h1>Hello world</h1>
-  </body>
-</html>
+---
+layout: default
+permalink: /
+---
+<section class="hero">
+  <h1>Problems, documented before the products.</h1>
+  <p class="lede">unsolved.now is a public index of specific, recurring workflow problems —
+  curated from public discussions, with linked evidence for every entry.
+  The inverse of a product directory: demand first, solutions later.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="{{ site.submit_url }}">Submit a problem</a>
+    <a class="btn" href="#waitlist">Builder waitlist</a>
+  </div>
+</section>
+
+<nav class="filters" aria-label="Filter problems by vertical">
+  <a href="#catalog" class="filter is-active" data-filter="all">all · {{ site.problems | size }}</a>
+  {% for v in site.verticals %}
+  {% assign items = site.problems | where: "vertical", v[0] %}
+  {% if items.size > 0 %}
+  <a href="#v-{{ v[0] }}" class="filter" data-filter="{{ v[0] }}">{{ v[1] | downcase }} · {{ items.size }}</a>
+  {% endif %}
+  {% endfor %}
+</nav>
+
+<div id="catalog">
+  {% for v in site.verticals %}
+  {% assign items = site.problems | where: "vertical", v[0] | sort: "date_curated" | reverse %}
+  {% if items.size > 0 %}
+  <section class="vertical-group" id="v-{{ v[0] }}" data-vertical="{{ v[0] }}">
+    <h2 class="vertical-heading">{{ v[1] }} <span class="count">{{ items.size }}</span></h2>
+    <ul class="problem-list">
+      {% for p in items %}
+      <li class="problem-row">
+        <h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
+        <p class="row-meta">{{ p.who }} · {{ p.evidence | size }} sources · {{ p.date_curated }}</p>
+        <p class="row-summary">{{ p.summary | split: ". " | first }}.</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+  {% endfor %}
+</div>
+
+<section class="p-section" id="about">
+  <h2>What this is</h2>
+  <p>Product directories list solutions. This index lists the other side: problems that
+  keep resurfacing in public discussions — specific enough to build against, sourced
+  enough to trust. Every entry links the discussions it was curated from, states who has
+  the problem, what they do about it today, and an editorial read on why it remains open.
+  Nothing is fabricated: no invented vote counts, no fictional users, no made-up numbers.</p>
+  <p><strong>What&rsquo;s here now, honestly:</strong></p>
+  <ul class="phase-list">
+    <li><span class="phase-tag now">phase 1 · live</span> — a curated catalog seeded from public
+    discussions, one indexable page per problem, submissions via GitHub.</li>
+    <li><span class="phase-tag later">phase 2 · planned</span> — structured community validation:
+    frequency, severity, tools tried, willingness to pay, interview availability.</li>
+    <li><span class="phase-tag later">phase 3 · planned</span> — verified demand profiles builders
+    can act on, and problem&nbsp;&rarr;&nbsp;builder matching.</li>
+  </ul>
+</section>
+
+<section class="waitlist-box" id="waitlist">
+  <h2>Building something? Watch the demand.</h2>
+  <p class="fine">Get new validated problems as they land — for founders, indie hackers, and
+  product teams scouting real demand. Low volume.</p>
+  {% if site.form_endpoint != "" %}
+  <form class="waitlist-form" action="{{ site.form_endpoint }}" method="POST">
+    <label for="wl-email">Email</label>
+    <input id="wl-email" type="email" name="email" required autocomplete="email" placeholder="you@company.com">
+    <button class="btn btn-primary" type="submit">Join the builder waitlist</button>
+  </form>
+  {% else %}
+  <p class="cta-row" style="margin-bottom:.25rem">
+    <a class="btn btn-primary" href="mailto:{{ site.contact_email }}?subject=unsolved.now%20builder%20waitlist&body=Add%20me%20to%20the%20builder%20waitlist.">Join via email</a>
+  </p>
+  <p class="fine">Opens your mail app with a pre-filled message — one-click signup form is on its way.</p>
+  {% endif %}
+</section>
+
+<script>
+/* Progressive enhancement: filter links become show/hide toggles.
+   Without JS they remain anchor links to each vertical's section. */
+(function () {
+  var links = document.querySelectorAll(".filter");
+  var groups = document.querySelectorAll(".vertical-group");
+  links.forEach(function (link) {
+    link.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      var key = link.dataset.filter;
+      links.forEach(function (l) { l.classList.toggle("is-active", l === link); });
+      groups.forEach(function (g) {
+        g.hidden = key !== "all" && g.dataset.vertical !== key;
+      });
+    });
+  });
+})();
+</script>
